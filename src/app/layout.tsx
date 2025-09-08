@@ -7,8 +7,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Tempo - Modern SaaS Starter",
-  description: "A modern full-stack starter template powered by Next.js",
+  title: "AI Agents vs MCP - Future of AI Interactions",
+  description:
+    "Comprehensive comparison of traditional AI agents and the Model Context Protocol. Discover which approach will shape the future of AI interactions.",
 };
 
 export default function RootLayout({
