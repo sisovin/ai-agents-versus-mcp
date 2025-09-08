@@ -97,31 +97,23 @@ const Header = () => {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/research" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Research
-                  </NavigationMenuLink>
+                <Link href="/research" className={navigationMenuTriggerStyle()}>
+                  Research
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/blog" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Blog
-                  </NavigationMenuLink>
+                <Link href="/blog" className={navigationMenuTriggerStyle()}>
+                  Blog
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/about" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    About
-                  </NavigationMenuLink>
+                <Link href="/about" className={navigationMenuTriggerStyle()}>
+                  About
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/admin" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Admin
-                  </NavigationMenuLink>
+                <Link href="/admin" className={navigationMenuTriggerStyle()}>
+                  Admin
                 </Link>
               </NavigationMenuItem>
             </NavigationMenuList>

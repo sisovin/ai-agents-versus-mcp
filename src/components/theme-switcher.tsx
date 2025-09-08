@@ -14,60 +14,49 @@ import { useEffect, useState } from "react";
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
 
   // useEffect only runs on the client, so now we can safely show the UI
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
-  if (!mounted) {
-    return null;
-  }
+  // Don't render until mounted to avoid hydration mismatch
+  if (!mounted) return null;
 
   const ICON_SIZE = 16;
+
+  // When the user selects 'system' we want to show the currently resolved theme
+  // (light or dark) so the button reflects the effective UI.
+  const effectiveTheme = theme === "system" ? resolvedTheme : theme;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size={"sm"}>
-          {theme === "light" ? (
-            <Sun
-              key="light"
-              size={ICON_SIZE}
-              className={"text-muted-foreground"}
-            />
-          ) : theme === "dark" ? (
-            <Moon
-              key="dark"
-              size={ICON_SIZE}
-              className={"text-muted-foreground"}
-            />
+          {effectiveTheme === "light" ? (
+            <Sun size={ICON_SIZE} className="text-muted-foreground" />
+          ) : effectiveTheme === "dark" ? (
+            <Moon size={ICON_SIZE} className="text-muted-foreground" />
           ) : (
-            <Laptop
-              key="system"
-              size={ICON_SIZE}
-              className={"text-muted-foreground"}
-            />
+            // Fallback to system icon if nothing resolved
+            <Laptop size={ICON_SIZE} className="text-muted-foreground" />
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-content" align="start">
+
+      <DropdownMenuContent className="w-40" align="start">
         <DropdownMenuRadioGroup
-          value={theme}
-          onValueChange={(e) => setTheme(e)}
+          // ensure the radio group always has a string value
+          value={theme ?? "system"}
+          onValueChange={(value) => setTheme(value as "light" | "dark" | "system")}
         >
           <DropdownMenuRadioItem className="flex gap-2" value="light">
-            <Sun size={ICON_SIZE} className="text-muted-foreground" />{" "}
-            <span>Light</span>
+            <Sun size={ICON_SIZE} className="text-muted-foreground" /> <span>Light</span>
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem className="flex gap-2" value="dark">
-            <Moon size={ICON_SIZE} className="text-muted-foreground" />{" "}
-            <span>Dark</span>
+            <Moon size={ICON_SIZE} className="text-muted-foreground" /> <span>Dark</span>
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem className="flex gap-2" value="system">
-            <Laptop size={ICON_SIZE} className="text-muted-foreground" />{" "}
-            <span>System</span>
+            <Laptop size={ICON_SIZE} className="text-muted-foreground" /> <span>System</span>
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
